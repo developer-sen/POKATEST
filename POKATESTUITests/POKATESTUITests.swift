@@ -22,12 +22,26 @@ final class POKATESTUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testNavigationTitleOfFactoryList() throws {
         // UI tests must launch the application that they test.
         let app = XCUIApplication()
         app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // Assert the navigation title
+        let navigationBar = app.navigationBars["Factory List"]
+        XCTAssert(navigationBar.exists)
+        XCTAssertEqual(navigationBar.staticTexts["Factory List"].label, "Factory List")
+    }
+    
+    func testNavigationOfDetailView() throws {
+//        // UI tests must launch the application that they test.
+        let app = XCUIApplication()
+        app.launch()
+        let pred = NSPredicate(format: "identifier == 'FactoryNameLabel'")
+        let name = app.descendants(matching: .staticText).matching(pred).firstMatch
+        XCTAssert(name.waitForExistence(timeout: 10))
+        name.tap()
+        let addressLabel = app.staticTexts["Address:"]
+        XCTAssert(addressLabel.waitForExistence(timeout: 10))
     }
 
     func testLaunchPerformance() throws {

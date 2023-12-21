@@ -11,7 +11,9 @@ import SwiftUI
 struct POKATESTApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                FactoryListView()
+            }
         }
     }
 }
